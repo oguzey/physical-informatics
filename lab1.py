@@ -36,8 +36,6 @@ def calc_probability_blocks(blocks):
         counting[block] = counting.get(block, 0) + 1
 
     probabilities = map(lambda b: counting[b] / count_all_blocks, blocks)
-
-    print 'probabilities = {}'.format(probabilities)
     return probabilities
 
 
@@ -55,12 +53,14 @@ for v in xrange(2, 11):
     block_sub_seq[v] = [s[(v * n):(v * (n + 1))] for n in xrange(local_N)]
     # convert bit blocks to numbers Sn(V)
     block_sub_seq[v] = map(calc_block_number, block_sub_seq[v])
-    print 'block_sub_seq[v] = '
-    print block_sub_seq[v]
+    # print 'block_sub_seq[v] = '
+    # print block_sub_seq[v]
     # calculate probabilities for chain blocks
     probs = calc_probability_blocks(block_sub_seq[v])
-    print 'probs = '
-    print probs
+    print 'probabilities = {}'.format(probs)
 
     shenon_entropy = - reduce(lambda acc, prob: acc + prob * math.log(prob, 2), probs, 0)
     print 'shenon entropy = ' + str(shenon_entropy)
+    for B in [2, 3]:
+        renyi_entropy = - (1.0 / (B - 1)) * math.log(reduce(lambda acc, prob: acc + prob ** B, probs, 0), 2)
+        print 'renyi_entropy with B {} equal to {}'.format(B, renyi_entropy)
