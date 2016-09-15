@@ -61,5 +61,6 @@ for v in xrange(2, 11):
     probs = calc_probability_blocks(block_sub_seq[v])
     print 'probs = '
     print probs
-    shenon_entropy = reduce(lambda acc, prob: acc + prob * math.log(prob, 2), block_sub_seq[v])
-    print 'shenon entropy = -' + str(shenon_entropy)
+
+    shenon_entropy = - reduce(lambda acc, prob: acc + prob * math.log(prob, 2), probs, 0)
+    print 'shenon entropy = ' + str(shenon_entropy)
