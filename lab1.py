@@ -39,11 +39,22 @@ def calc_probability_blocks(blocks):
     return probabilities
 
 
-N = 100
+def calc_shenon_entropy(seq):
+    counting = {}
+    for bit in seq:
+        counting[bit] = counting.get(bit, 0) + 1
+    prob_s = map(lambda b: float(counting[b]) / len(seq), s)
+    #print 'S = ' + str(prob_s)
+    shenon_entropy = - reduce(lambda acc, prob: acc + prob * math.log(prob, 2), prob_s, 0)
+    return shenon_entropy
+
+
+N = 10000
 # generate s sequence
 s = map(lambda x: x > 0, henon_generator(0.01, 0.1, N))
 
-print s
+#print s
+print 'Shenon entropy = ' + str(calc_shenon_entropy(s))
 block_sub_seq = {}
 
 for v in xrange(2, 11):
@@ -57,10 +68,10 @@ for v in xrange(2, 11):
     # print block_sub_seq[v]
     # calculate probabilities for chain blocks
     probs = calc_probability_blocks(block_sub_seq[v])
-    print 'probabilities = {}'.format(probs)
+    #print 'probabilities = {}'.format(probs)
 
     shenon_entropy = - reduce(lambda acc, prob: acc + prob * math.log(prob, 2), probs, 0)
-    print 'shenon entropy = ' + str(shenon_entropy)
+    print 'Block shenon entropy = ' + str(shenon_entropy)
     for B in [2, 3]:
         renyi_entropy = - (1.0 / (B - 1)) * math.log(reduce(lambda acc, prob: acc + prob ** B, probs, 0), 2)
         print 'renyi_entropy with B {} equal to {}'.format(B, renyi_entropy)
