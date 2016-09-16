@@ -1,5 +1,5 @@
 import math
-
+#import matplotlib.pyplot as plt
 
 def henon_generator(x0, x1, amount):
     """
@@ -35,7 +35,11 @@ def calc_probability_blocks(blocks):
     for block in blocks:
         counting[block] = counting.get(block, 0) + 1
 
-    probabilities = map(lambda b: counting[b] / count_all_blocks, blocks)
+    probabilities = []
+    for block, count in counting.items():
+        probabilities.append(count / count_all_blocks)
+
+    # probabilities = map(lambda b: counting[b] / count_all_blocks, blocks)
     return probabilities
 
 
@@ -57,6 +61,11 @@ s = map(lambda x: x > 0, henon_generator(0.01, 0.1, N))
 print 'Shenon entropy = ' + str(calc_shenon_entropy(s))
 block_sub_seq = {}
 
+vs = []
+shenons = []
+renyis = {2: [], 3: []}
+
+
 for v in xrange(2, 11):
     local_N = N / v
     print "V = %d, [N/v] = %d" % (v, local_N)
@@ -72,6 +81,18 @@ for v in xrange(2, 11):
 
     shenon_entropy = - reduce(lambda acc, prob: acc + prob * math.log(prob, 2), probs, 0)
     print 'Block shenon entropy = ' + str(shenon_entropy)
+    vs.append(v)
+    shenons.append(shenon_entropy)
     for B in [2, 3]:
         renyi_entropy = - (1.0 / (B - 1)) * math.log(reduce(lambda acc, prob: acc + prob ** B, probs, 0), 2)
         print 'renyi_entropy with B {} equal to {}'.format(B, renyi_entropy)
+        renyis[B].append(renyi_entropy)
+
+#
+# plt.plot(vs, shenons, 'Shenon')
+# plt.show()
+# plt.plot(vs, renyis[2], 'Renyi 2')
+# plt.show()
+# plt.plot(vs, renyis[3], 'Renyi 3')
+# plt.show()
+
