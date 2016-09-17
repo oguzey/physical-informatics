@@ -1,2 +1,3 @@
 # physical-informatics
-Labs
+Labs  
+Requirements: python3.5, matplotlib
