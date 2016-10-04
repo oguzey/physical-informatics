@@ -44,8 +44,9 @@ def get_coefs(mu):
 
 #for mu in np.arange(3.217973511597760, 3.217973511597761, 0.00000000000000001):
 for mu in np.arange(2.6, 6.0, 0.05):
-    print("-" * 40)
+    print("-" * 100)
     print("Mu = {}".format(mu))
     for coef in get_coefs(mu):
+        print("\t" + "=" * 70)
         print("\tCoef = {}".format(coef))
         print("\tRoots = {}".format(get_roots(coef.a, coef.b, coef.c, coef.d)))
