@@ -42,7 +42,8 @@ def get_coefs(mu):
     return (Coef(a(), b(1), c(1), d(1)), Coef(a(), b(-1), c(-1), d(-1)))
 
 
-for mu in np.arange(3.217973511597760, 3.217973511597761, 0.00000000000000001):
+#for mu in np.arange(3.217973511597760, 3.217973511597761, 0.00000000000000001):
+for mu in np.arange(2.6, 6.0, 0.05):
     print("-" * 40)
     print("Mu = {}".format(mu))
     for coef in get_coefs(mu):
