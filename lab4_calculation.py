@@ -8,10 +8,32 @@ def get_roots(a, b, c, d):
 
     Q = (p / 3)**3 + (q / 2)**2
 
-    print("\tQ = {}".format(Q))
+    print("\tQ = {}, q = {}, p = {}".format(Q, q, p))
 
-    alfa = (-q/2 + Q**0.5)**(1 / 3)
-    beta = (-q/2 - Q**0.5)**(1 / 3)
+    # alfa
+    if Q < 0:
+        temp = -q/2 + (1j)*(-Q)**0.5
+        alfa = temp**(1 / 3)
+    else:
+        temp = -q/2 + Q**0.5
+        if temp < 0:
+            alfa = -(-temp)**(1 / 3)
+        else:
+            alfa = temp**(1 / 3)
+
+    # beta
+    if Q < 0:
+        temp = -q/2 - (1j)*(-Q)**0.5
+        beta = temp**(1 / 3)
+    else:
+        temp = -q/2 - Q**0.5
+        if temp < 0:
+            beta = -(-temp)**(1 / 3)
+        else:
+            beta = temp**(1 / 3)
+
+    # alfa = (-q/2 + Q**0.5)**(1 / 3)
+    # beta = (-q/2 - Q**0.5)**(1 / 3)
 
     print("\talfa = {}, beta = {}, alfa - beta = {}".format(alfa, beta, alfa - beta))
     y1 = (alfa + beta)
