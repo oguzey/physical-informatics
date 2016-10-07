@@ -1,6 +1,7 @@
 from collections import namedtuple
 import numpy as np
 
+
 def get_roots(a, b, c, d):
 
     p = (3*a*c - b*b) / (3*a*a)
@@ -50,9 +51,14 @@ def get_coefs(mu):
     # t - means sign of calculation (+-)
     tmp_calc = lambda t: t * (mu*mu - 0.16)**0.5
 
-    a = lambda: 1
-    b = lambda t: -( 0.5 * tmp_calc(t) - mu / 2 + 0.2)
-    c = lambda t: 2.6 * tmp_calc(t)  + 2.4 * mu + 1
+    # a = lambda: 1
+    # b = lambda t: -(0.5 * tmp_calc(t) - mu / 2. + 0.2)
+    # c = lambda t: 2.6 * tmp_calc(t) + 2.4 * mu + 1
+    # d = lambda t: tmp_calc(t)
+
+    a = lambda: -1
+    b = lambda t: 0.2 + ((-mu) + tmp_calc(t)) / 2.
+    c = lambda t: 2.6 * tmp_calc(t) + 2.4 * mu + 1
     d = lambda t: tmp_calc(t)
 
     # coef1 = Coef(a(), b(1), c(1), d(1))
@@ -61,14 +67,16 @@ def get_coefs(mu):
     # print("coef1 = {}".format(coef1))
     # print("coef2 = {}".format(coef2))
 
-    return (Coef(a(), b(1), c(1), d(1)), Coef(a(), b(-1), c(-1), d(-1)))
+    return Coef(a(), b(1), c(1), d(1)), Coef(a(), b(-1), c(-1), d(-1))
 
 
-#for mu in np.arange(3.217973511597760, 3.217973511597761, 0.00000000000000001):
-for mu in np.arange(2.6, 6.0, 0.05):
+#for mu in np.arange(3.217973511597760, 3.217973511597761, 0.000000000000000001):
+for mu in np.arange(2.6, 6.01, 0.1**2):
     print("-" * 100)
     print("Mu = {}".format(mu))
     for coef in get_coefs(mu):
-        print("\t" + "=" * 70)
-        print("\tCoef = {}".format(coef))
-        print("\tRoots = {}".format(get_roots(coef.a, coef.b, coef.c, coef.d)))
+        # print("\t" + "=" * 70)
+        # print("\tCoef = {}".format(coef))
+        roots = np.roots([coef.a, coef.b, coef.c, coef.d])
+        print("\tRoots = {}".format(' ; '.join(map(lambda c: str(complex(c)), roots))))
+
