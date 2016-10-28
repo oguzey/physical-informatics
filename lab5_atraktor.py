@@ -32,7 +32,7 @@ def Lorenz(state, t):
 
 
 state0 = [1.0, 1.0, 1.0]
-t = np.arange(0.0, 1250.0, 0.1)
+t = np.arange(0.0, 250.0, 0.02)
 state = odeint(Lorenz, state0, t)
 fig = plt.figure()
 ax = fig.gca(projection='3d')
@@ -43,7 +43,10 @@ ax.set_zlabel('z')
 
 make_figure('Y1(t)')
 plt.title('Y1(t)')
-plt.plot(state[:, 0], state[:, 1], 'o-', label='Y1(t)')
-
+plt.plot(t, state[:, 0], 'o-', label='Y1(t)')
+plt.grid(b=True, which='major', color='grey', linestyle='--')
+# def autocorr(x):
+#     result = numpy.correlate(x, x, mode='full')
+#     return result[result.size/2:]
 
 plt.show()
