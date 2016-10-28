@@ -43,6 +43,7 @@ def calc_probability_blocks(blocks):
 
     return probabilities
 
+
 N = 10000
 # generate s sequence
 s = list(map(lambda x: x > 0, henon_generator(0.51, 0.5, N)))

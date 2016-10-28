@@ -5,6 +5,12 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
 
+def make_figure(name):
+    fig = plt.figure()
+    fig.set_size_inches(15, 7)
+    fig.canvas.set_window_title(name.capitalize())
+
+
 def Lorenz(state, t):
     # unpack the state vector
     x = state[0]
@@ -26,7 +32,7 @@ def Lorenz(state, t):
 
 
 state0 = [1.0, 1.0, 1.0]
-t = np.arange(0.0, 30.0, 0.01)
+t = np.arange(0.0, 1250.0, 0.1)
 state = odeint(Lorenz, state0, t)
 fig = plt.figure()
 ax = fig.gca(projection='3d')
@@ -34,4 +40,10 @@ ax.plot(state[:, 0], state[:, 1], state[:, 2])
 ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_zlabel('z')
+
+make_figure('Y1(t)')
+plt.title('Y1(t)')
+plt.plot(state[:, 0], state[:, 1], 'o-', label='Y1(t)')
+
+
 plt.show()
