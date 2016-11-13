@@ -8,3 +8,5 @@ Labs for subject "Physical informatics".
   * matplotlib
   * scipy
   * numpy
+  * sympy
+
