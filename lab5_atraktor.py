@@ -163,7 +163,7 @@ def draw_plot_xy(x, y, name):
 
 # step 1
 
-delta_t = 0.01
+delta_t = 0.002
 T = 250.0
 T_ini = 0.0
 t = np.arange(T_ini, T, delta_t)
@@ -189,18 +189,19 @@ logger.info('N_max equal to %.0f', N_max)
 
 # step 4
 
-taus = range(1, 100, 1)
+taus = range(1, 10)
 Rs = [calculate_R(x) for x in taus]
 draw_plot_xy(taus, Rs, 'R(T)')
 
-tau_optimal = Rs.index(min(Rs))
+# need choose local minimum
+tau_optimal = 1 # Rs.index(min(Rs))
 logger.info('Tau optimal equal to %d', tau_optimal)
 
 # step 5
 
 tmp = int(N_max - 2 * tau_optimal / delta_t)
 assert tmp > 10000
-N = 5000
+N = 10000   # for testing need decrease this value. 100 will be enough
 logger.info('N should be less than %d', tmp)
 logger.info('N equal to %d', N)
 
@@ -226,9 +227,9 @@ draw_plot_xy(rs, Cs_three_dim, 'C(r) three dim')
 
 # step 7
 
-print('Cs_one_dim = ' + str(Cs_one_dim))
-print('Cs_two_dim = ' + str(Cs_two_dim))
-print('Cs_three_dim = ' + str(Cs_three_dim))
+logger.debug('Cs_one_dim = ' + str(Cs_one_dim))
+logger.debug('Cs_two_dim = ' + str(Cs_two_dim))
+logger.debug('Cs_three_dim = ' + str(Cs_three_dim))
 
 rs_ln = [math.log(x) for x in rs]
 Cs_one_dim_ln = [math.log(x) for x in Cs_one_dim]
@@ -239,9 +240,9 @@ draw_plot_xy(rs_ln, Cs_one_dim_ln, 'C(r) one dim ln')
 draw_plot_xy(rs_ln, Cs_two_dim_ln, 'C(r) two dim ln')
 draw_plot_xy(rs_ln, Cs_three_dim_ln, 'C(r) three dim ln')
 
-print('Cs_one_dim_ln = ' + str(Cs_one_dim_ln))
-print('Cs_two_dim_ln = ' + str(Cs_two_dim_ln))
-print('Cs_three_dim_ln = ' + str(Cs_three_dim_ln))
+logger.debug('Cs_one_dim_ln = ' + str(Cs_one_dim_ln))
+logger.debug('Cs_two_dim_ln = ' + str(Cs_two_dim_ln))
+logger.debug('Cs_three_dim_ln = ' + str(Cs_three_dim_ln))
 
 
 # find tangent
