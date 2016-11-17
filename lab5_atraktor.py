@@ -163,7 +163,7 @@ def draw_plot_xy(x, y, name):
 
 # step 1
 
-delta_t = 0.002
+delta_t = 0.01
 T = 250.0
 T_ini = 0.0
 t = np.arange(T_ini, T, delta_t)
@@ -189,13 +189,13 @@ logger.info('N_max equal to %.0f', N_max)
 
 # step 4
 
-taus = range(1, 10)
+taus = np.arange(delta_t, 1.0, delta_t)
 Rs = [calculate_R(x) for x in taus]
 draw_plot_xy(taus, Rs, 'R(T)')
 
 # need choose local minimum
-tau_optimal = 1 # Rs.index(min(Rs))
-logger.info('Tau optimal equal to %d', tau_optimal)
+tau_optimal = 0.06 # Rs.index(min(Rs))
+logger.info('Tau optimal equal to %.3f', tau_optimal)
 
 # step 5
 
