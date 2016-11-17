@@ -189,7 +189,7 @@ logger.info('N_max equal to %.0f', N_max)
 
 # step 4
 
-taus = np.arange(delta_t, 1.0, delta_t)
+taus = np.arange(delta_t, 0.5, delta_t)
 Rs = [calculate_R(x) for x in taus]
 draw_plot_xy(taus, Rs, 'R(T)')
 
@@ -274,5 +274,7 @@ draw_plot_xy(new_rs, tangent_three_d_orig, 'C(r) three tg orig')
 
 draw_plot_xyz(y1_s, y2_s, y3_s, 'Orig system', 'Y1', 'Y2', 'Y3')
 draw_plot_xyz(y1_s, y1_s_tau, y1_s_double_tau, 'Artificial system', 'Y1', 'Y2', 'Y3')
+
+logger.debug('Done!')
 
 plt.show()
