@@ -19,11 +19,13 @@ def draw_plot_xyz(data_x, data_y, data_z, name, name_x='x', name_y='y', name_z='
     ax.set_zlabel(name_z)
 
 
-def draw_plot_xy(x, y, name):
+def draw_plot_xy(x, y, name, xlabel='x', ylabel='y'):
     make_figure(name)
     plt.title(name)
     plt.plot(x, y, 'o-', label=name)
     plt.grid(b=True, which='major', color='grey', linestyle='--')
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
 
 
 def show_all_plots():
