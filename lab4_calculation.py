@@ -71,7 +71,7 @@ def get_coefs(mu):
 
 
 #for mu in np.arange(3.217973511597760, 3.217973511597761, 0.000000000000000001):
-for mu in np.arange(2.6, 6.01, 0.1**2):
+for mu in np.arange(0.4, 11.01, 0.1**2):
     print("-" * 100)
     print("Mu = {}".format(mu))
     for coef in get_coefs(mu):

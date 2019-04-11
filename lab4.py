@@ -2,7 +2,10 @@ from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 import numpy as np
 
+mu = 0.2
+
 def Rosler(state,t):
+  global mu
   # unpack the state vector
   y1 = state[0]
   y2 = state[1]
@@ -10,7 +13,7 @@ def Rosler(state,t):
 
   # these are our constants
   alpha = 0.2
-  mu = 2.6
+
 
   # compute state derivatives
   y1d = - (y2 + y3)
@@ -25,14 +28,27 @@ state0 = [2.0, -1.0, 0.0]
 T = 20.0
 t = np.arange(0.0, T, 0.01)
 
-state = odeint(Rosler, state0, t)
+#state = odeint(Rosler, state0, t)
 
 # do some fancy 3D plotting
 from mpl_toolkits.mplot3d import Axes3D
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-ax.plot(state[:,0],state[:,1],state[:,2])
 ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_zlabel('z')
+
+#ax.plot(state[:,0], state[:,1], state[:,2])
+
+#for x in np.arange(10.0, 10.22, 0.01):
+for x in np.arange(0.4, 6.0, 0.1):
+  mu = x
+  state = odeint(Rosler, state0, t)
+  ax.plot(state[:, 0], state[:, 1], state[:, 2])
+
+
+# mu = 0.4
+# state = odeint(Rosler, state0, t)
+# ax.plot(state[:, 0], state[:, 1], state[:, 2])
+
 plt.show()
